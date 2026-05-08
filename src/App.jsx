@@ -32,30 +32,29 @@ function App() {
   const ActiveComponent = pages[activePage];
 
   return (
-    <div className="flex min-h-screen bg-surface-50 dark:bg-surface-950 transition-colors duration-300">
+    <div className="flex h-screen w-full overflow-hidden bg-surface-50 dark:bg-surface-950 transition-colors duration-300">
       <Sidebar activePage={activePage} onNavigate={setActivePage} />
 
-      <div className="flex-1 flex flex-col overflow-y-auto">
-        {/* Top bar with theme toggle */}
-        <header className="flex items-center justify-end px-6 md:px-10 pt-6 md:pt-8 pb-0">
-          <button
-            id="theme-toggle"
-            onClick={toggle}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl
-                       bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700
-                       text-surface-500 dark:text-surface-400
-                       hover:bg-surface-50 dark:hover:bg-surface-700
-                       shadow-sm hover:shadow transition-all duration-200 cursor-pointer"
-            title={dark ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {dark ? <SunIcon /> : <MoonIcon />}
-            <span className="text-xs font-medium hidden sm:inline">
-              {dark ? "Light" : "Dark"}
-            </span>
-          </button>
+      <div className="flex-1 flex flex-col h-full min-w-0 overflow-y-auto overflow-x-hidden">
+        {/* Top Navbar */}
+        <header className="flex items-center justify-end px-8 md:px-14 py-5 bg-white/80 dark:bg-surface-900/80 backdrop-blur-md shadow-sm border-b border-purple-100 dark:border-surface-800 sticky top-0 z-10 transition-colors duration-300">
+          <div className="flex items-center gap-4 ml-auto">
+            <button
+              id="theme-toggle"
+              onClick={toggle}
+              className="flex items-center justify-center w-10 h-10 rounded-xl
+                         bg-purple-50 dark:bg-surface-800 border border-purple-100 dark:border-surface-700
+                         text-purple-600 dark:text-purple-300
+                         hover:bg-purple-100 dark:hover:bg-surface-700 hover:-translate-y-0.5
+                         shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+              title={dark ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {dark ? <SunIcon /> : <MoonIcon />}
+            </button>
+          </div>
         </header>
 
-        <main className="flex-1 px-6 md:px-10 py-6 md:py-8">
+        <main className="flex-1 pl-12 pr-8 md:pl-20 md:pr-16 py-12 md:py-16 w-full max-w-screen-2xl mx-auto">
           <ActiveComponent />
         </main>
       </div>

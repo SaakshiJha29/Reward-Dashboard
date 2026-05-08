@@ -206,7 +206,7 @@ export default function EmployeesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         {/* Search */}
         <div className="relative w-full sm:max-w-sm">
-          <span className="absolute inset-y-0 left-3 flex items-center text-surface-400">
+          <span className="absolute inset-y-0 left-3 flex items-center text-surface-400 pointer-events-none">
             <SearchIcon />
           </span>
           <input
@@ -215,7 +215,7 @@ export default function EmployeesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search employees…"
-            className="w-full rounded-xl border border-surface-200 bg-white pl-10 pr-4 py-2.5 text-sm text-surface-800 placeholder:text-surface-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400 transition-all duration-200"
+            className="w-full rounded-xl border border-surface-200 bg-white pl-11 pr-4 py-2.5 text-sm text-surface-800 placeholder:text-surface-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400 transition-all duration-200"
           />
         </div>
 

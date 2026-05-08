@@ -27,7 +27,9 @@ const statCards = [
     value: "2,847",
     change: "+12.5%",
     up: true,
-    gradient: "from-primary-500 to-primary-700",
+    gradient: "from-purple-200 to-purple-300 dark:from-purple-800 dark:to-purple-900",
+    textColor: "text-purple-800 dark:text-purple-100",
+    iconBg: "bg-purple-100 text-purple-700 dark:bg-purple-800 dark:text-purple-200",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
@@ -39,7 +41,9 @@ const statCards = [
     value: "4.6 / 5",
     change: "+3.1%",
     up: true,
-    gradient: "from-amber-500 to-orange-500",
+    gradient: "from-yellow-100 to-yellow-200 dark:from-yellow-700 dark:to-yellow-800",
+    textColor: "text-yellow-900 dark:text-yellow-100",
+    iconBg: "bg-yellow-50 text-yellow-700 dark:bg-yellow-600 dark:text-yellow-100",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
@@ -51,7 +55,9 @@ const statCards = [
     value: "1,284",
     change: "+8.7%",
     up: true,
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-indigo-100 to-indigo-200 dark:from-indigo-800 dark:to-indigo-900",
+    textColor: "text-indigo-900 dark:text-indigo-100",
+    iconBg: "bg-indigo-50 text-indigo-700 dark:bg-indigo-700 dark:text-indigo-100",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M18.75 4.236c.982.143 1.954.317 2.916.52A6.003 6.003 0 0 1 16.27 9.728M18.75 4.236V4.5c0 2.108-.966 3.99-2.48 5.228m0 0a6.02 6.02 0 0 1-7.54 0" />
@@ -165,7 +171,7 @@ const pieOptions = {
    ═══════════════════════════════════════════════════ */
 export default function DashboardPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-12 max-w-7xl mx-auto pb-12">
       {/* ── Header ── */}
       <div>
         <h1 className="text-3xl font-bold text-surface-900">Dashboard</h1>
@@ -175,44 +181,44 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Stat Cards ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
         {statCards.map((card) => (
           <div
             key={card.label}
-            className="relative overflow-hidden bg-white rounded-2xl shadow-sm border border-surface-100
-                       hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+            className={`relative overflow-hidden bg-gradient-to-br ${card.gradient} rounded-[2rem] shadow-sm border border-white/40 dark:border-white/5
+                       hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 ease-out`}
           >
             {/* decorative blob */}
             <div
-              className={`absolute -top-6 -right-6 w-28 h-28 rounded-full bg-gradient-to-br ${card.gradient} opacity-[0.08]`}
+              className={`absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/20 dark:bg-black/10 blur-2xl`}
             />
 
-            <div className="flex items-start gap-4 p-6">
+            <div className="flex items-start gap-5 p-8 sm:p-10 relative z-10">
               {/* icon */}
               <div
-                className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${card.gradient} text-white shadow-lg shrink-0`}
+                className={`flex items-center justify-center w-16 h-16 rounded-2xl ${card.iconBg} shadow-sm shrink-0`}
               >
                 {card.icon}
               </div>
 
               {/* text */}
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-surface-500">
+                <p className={`text-sm font-semibold opacity-80 ${card.textColor}`}>
                   {card.label}
                 </p>
-                <p className="mt-1 text-2xl font-bold text-surface-900">
+                <p className={`mt-1.5 text-3xl font-extrabold tracking-tight ${card.textColor}`}>
                   {card.value}
                 </p>
                 <span
-                  className={`inline-flex items-center gap-1 mt-1.5 text-xs font-semibold ${
-                    card.up ? "text-emerald-600" : "text-rose-600"
+                  className={`inline-flex items-center gap-1 mt-2 text-xs font-bold ${
+                    card.up ? "text-emerald-700 dark:text-emerald-300" : "text-rose-700 dark:text-rose-300"
                   }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    strokeWidth={2.5}
+                    strokeWidth={3}
                     stroke="currentColor"
                     className={`w-3.5 h-3.5 ${card.up ? "" : "rotate-180"}`}
                   >
@@ -231,10 +237,10 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Charts Row ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Bar Chart — takes 3/5 */}
-        <div className="lg:col-span-3 bg-white rounded-2xl p-6 shadow-sm border border-surface-100">
-          <div className="flex items-center justify-between mb-6">
+        <div className="lg:col-span-3 bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-surface-100">
+          <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-lg font-semibold text-surface-900">
                 Employee Performance
@@ -253,8 +259,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Pie Chart — takes 2/5 */}
-        <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-surface-100">
-          <div className="mb-6">
+        <div className="lg:col-span-2 bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-surface-100">
+          <div className="mb-8">
             <h2 className="text-lg font-semibold text-surface-900">
               Reward Distribution
             </h2>
@@ -269,11 +275,11 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Recent Activity ── */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-surface-100">
-        <h2 className="text-lg font-semibold text-surface-900 mb-5">
+      <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-surface-100">
+        <h2 className="text-xl font-semibold text-surface-900 mb-8">
           Recent Activity
         </h2>
-        <div className="space-y-4">
+        <div className="space-y-6">
           {[
             { name: "Sarah Chen", action: "received Gold Star reward", time: "2 min ago", avatar: "SC" },
             { name: "Marcus Johnson", action: "completed quarterly review", time: "1 hour ago", avatar: "MJ" },
@@ -283,9 +289,9 @@ export default function DashboardPage() {
           ].map((item, i) => (
             <div
               key={i}
-              className="flex items-center gap-4 p-3 rounded-xl hover:bg-surface-50 transition-colors duration-200"
+              className="flex items-center gap-5 p-4 rounded-2xl hover:bg-surface-50 transition-colors duration-200"
             >
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700 text-sm font-bold shrink-0">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-purple-100 text-purple-700 text-sm font-bold shrink-0">
                 {item.avatar}
               </div>
               <div className="min-w-0 flex-1">
