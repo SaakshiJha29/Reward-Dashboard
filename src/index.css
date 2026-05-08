@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --color-primary-50: #eef2ff;
@@ -39,6 +41,13 @@ body {
   color: var(--color-surface-800);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body,
+body:where(.dark *) {
+  background-color: var(--color-surface-950);
+  color: var(--color-surface-200);
 }
 
 /* Custom scrollbar */
@@ -68,4 +77,10 @@ body {
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(16px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Smooth dark mode transitions on key elements */
+.dark-transition,
+.dark-transition * {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
