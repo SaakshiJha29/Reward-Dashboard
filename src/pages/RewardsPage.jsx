@@ -127,7 +127,7 @@ export default function RewardsPage() {
   const totalBudget = rewardData.reduce((s, r) => s + r.bonus, 0);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 md:space-y-10">
       {/* ── Header ── */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -143,7 +143,7 @@ export default function RewardsPage() {
       </div>
 
       {/* ── Reward Cards Grid ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
         {rewardData.map((emp) => (
           <div
             key={emp.id}

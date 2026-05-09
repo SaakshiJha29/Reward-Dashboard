@@ -48,7 +48,7 @@ export default function Sidebar({ activePage, onNavigate, isMobileMenuOpen, setI
         transition-transform md:transition-all duration-300 ease-in-out
         ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
         ${collapsed ? "w-20" : "w-64"}
-        shadow-2xl md:shadow-sm
+        shadow-2xl md:shadow-md
       `}
     >
       {/* ── Logo / Brand ── */}
@@ -78,7 +78,7 @@ export default function Sidebar({ activePage, onNavigate, isMobileMenuOpen, setI
       </div>
 
       {/* ── Navigation ── */}
-      <nav className="flex-1 px-6 py-10 space-y-3 overflow-y-auto">
+      <nav className="flex-1 px-5 py-10 space-y-4 overflow-y-auto">
         {menuItems.map(({ key, label }) => {
           const isActive = activePage === key;
           return (

@@ -39,7 +39,7 @@ function App() {
   const ActiveComponent = pages[activePage];
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-surface-50 dark:bg-surface-950 transition-colors duration-300">
+    <div className="flex gap-x-0 md:gap-x-8 h-screen w-full overflow-hidden bg-surface-50 dark:bg-surface-950 transition-colors duration-300">
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
         <div 
@@ -86,7 +86,7 @@ function App() {
           </div>
         </header>
 
-        <main className="flex-1 p-6 sm:p-8 md:p-12 lg:p-16 xl:p-20 w-full max-w-screen-2xl mx-auto transition-all duration-300">
+        <main className="flex-1 px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 lg:px-14 lg:py-14 w-full max-w-screen-2xl mx-auto transition-all duration-300">
           <ActiveComponent />
         </main>
       </div>

@@ -195,7 +195,7 @@ export default function EmployeesPage() {
   const addEmployee = (emp) => setEmployees((prev) => [emp, ...prev]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 md:space-y-10">
       {/* ── Header ── */}
       <div>
         <h1 className="text-3xl font-bold text-surface-900">Employees</h1>

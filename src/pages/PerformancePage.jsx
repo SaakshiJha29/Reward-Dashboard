@@ -126,7 +126,7 @@ export default function PerformancePage() {
   const [expandedId, setExpandedId] = useState(null);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 md:space-y-10">
       {/* ── Header ── */}
       <div>
         <h1 className="text-3xl font-bold text-surface-900">Performance</h1>
@@ -134,7 +134,7 @@ export default function PerformancePage() {
       </div>
 
       {/* ── Employee Cards ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
         {employees.map((emp) => {
           const isTop = emp.id === topPerformerId;
           const isExpanded = expandedId === emp.id;

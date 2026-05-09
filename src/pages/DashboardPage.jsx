@@ -171,7 +171,7 @@ const pieOptions = {
    ═══════════════════════════════════════════════════ */
 export default function DashboardPage() {
   return (
-    <div className="space-y-12 max-w-7xl mx-auto pb-12">
+    <div className="space-y-10 md:space-y-14 max-w-7xl mx-auto pb-12">
       {/* ── Header ── */}
       <div>
         <h1 className="text-3xl font-bold text-surface-900">Dashboard</h1>
@@ -181,7 +181,7 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Stat Cards ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
         {statCards.map((card) => (
           <div
             key={card.label}
@@ -237,7 +237,7 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Charts Row ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-10">
         {/* Bar Chart — takes 3/5 */}
         <div className="lg:col-span-3 bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-surface-100">
           <div className="flex items-center justify-between mb-8">
