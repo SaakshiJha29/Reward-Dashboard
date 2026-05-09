@@ -183,20 +183,24 @@ export default function DashboardPage() {
         <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-purple-400/15 blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-violet-400/10 blur-3xl" />
 
-        {/* Sparkle icon */}
-        <div className="relative z-10 flex items-center justify-center mx-auto mb-6 w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 shadow-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8 text-white">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-          </svg>
-        </div>
+        {/* Centered content wrapper */}
+        <div className="relative z-10 flex flex-col items-center">
+          {/* Sparkle icon */}
+          <div className="flex items-center justify-center mb-6 w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8 text-white">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+            </svg>
+          </div>
 
-        <h1 className="relative z-10 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
-          Reward<span className="text-purple-200">Hub</span>
-        </h1>
-        <p className="relative z-10 mt-8 text-base sm:text-lg lg:text-xl text-purple-100/90 max-w-2xl mx-auto leading-loose font-medium text-center">
-          Recognize excellence, fuel motivation — track your team&apos;s performance
-          and celebrate every milestone in one powerful dashboard.
-        </p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight text-center">
+            Reward<span className="text-purple-200">Hub</span>
+          </h1>
+
+          <p className="mt-6 text-base sm:text-lg lg:text-xl text-purple-100/90 max-w-3xl leading-loose font-medium text-center">
+            Recognize excellence, fuel motivation — track your team&apos;s performance
+            and celebrate every milestone in one powerful dashboard.
+          </p>
+        </div>
 
         {/* Quick stats row inside hero */}
         <div className="relative z-10 flex flex-wrap items-center justify-center gap-12 sm:gap-20 mt-12 pt-10 border-t border-white/15">
