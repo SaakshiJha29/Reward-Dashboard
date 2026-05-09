@@ -131,64 +131,64 @@ export default function RewardsPage() {
       {/* ── Header ── */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-surface-900">Rewards</h1>
-          <p className="mt-1 text-surface-500">View bonuses, perks, and recognitions awarded to employees.</p>
+          <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-100">Rewards</h1>
+          <p className="mt-2 text-surface-500 dark:text-surface-400">View bonuses, perks, and recognitions awarded to employees.</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-4 py-2.5 bg-emerald-50 rounded-xl border border-emerald-100">
-            <span className="text-sm text-emerald-600 font-medium">Total Distributed:</span>
-            <span className="text-lg font-bold text-emerald-700">{formatCurrency(totalBudget)}</span>
+          <div className="flex items-center gap-3 px-5 py-3 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl border border-emerald-100 dark:border-emerald-800/40">
+            <span className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">Total Distributed:</span>
+            <span className="text-lg font-bold text-emerald-700 dark:text-emerald-300">{formatCurrency(totalBudget)}</span>
           </div>
         </div>
       </div>
 
       {/* ── Reward Cards Grid ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7 md:gap-9">
         {rewardData.map((emp) => (
           <div
             key={emp.id}
-            className="group relative bg-white rounded-2xl shadow-sm border border-surface-100
-                       hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+            className="group relative bg-white dark:bg-surface-900/80 rounded-2xl shadow-sm border border-purple-100/60 dark:border-purple-900/30
+                       hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden backdrop-blur-sm"
           >
             {/* Gradient accent bar */}
             <div className={`h-1.5 bg-gradient-to-r ${emp.badgeColor}`} />
 
             {/* Card Body */}
-            <div className="p-6">
+            <div className="p-7">
               {/* Top Row: Avatar + Name + Badge */}
               <div className="flex items-start gap-4">
-                <div className={`flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${emp.badgeColor} text-white text-sm font-bold shadow-lg shrink-0
+                <div className={`flex items-center justify-center w-13 h-13 rounded-xl bg-gradient-to-br ${emp.badgeColor} text-white text-sm font-bold shadow-lg shrink-0
                                  group-hover:scale-110 transition-transform duration-300`}>
                   {emp.avatar}
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-base font-semibold text-surface-900">{emp.name}</h3>
-                  <p className="text-sm text-surface-400">{emp.department}</p>
+                  <h3 className="text-base font-semibold text-surface-900 dark:text-surface-100">{emp.name}</h3>
+                  <p className="text-sm text-surface-400 dark:text-surface-500 mt-0.5">{emp.department}</p>
                 </div>
 
-                <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${emp.badgeColor} text-white shadow-sm shrink-0`}>
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r ${emp.badgeColor} text-white shadow-sm shrink-0`}>
                   {emp.badgeIcon} {emp.badge}
                 </span>
               </div>
 
               {/* Bonus Amount */}
-              <div className="mt-5 p-4 rounded-xl bg-surface-50 border border-surface-100">
-                <p className="text-xs font-medium text-surface-400 uppercase tracking-wider">Bonus Amount</p>
-                <p className="mt-1 text-2xl font-bold text-surface-900">
+              <div className="mt-6 p-5 rounded-xl bg-surface-50 dark:bg-surface-800/50 border border-surface-100 dark:border-surface-700/40">
+                <p className="text-xs font-medium text-surface-400 dark:text-surface-500 uppercase tracking-wider">Bonus Amount</p>
+                <p className="mt-1.5 text-2xl font-bold text-surface-900 dark:text-surface-100">
                   {formatCurrency(emp.bonus)}
                 </p>
               </div>
 
               {/* Perks */}
-              <div className="mt-4">
-                <p className="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2.5">Perks & Benefits</p>
-                <div className="flex flex-wrap gap-2">
+              <div className="mt-5">
+                <p className="text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider mb-3">Perks & Benefits</p>
+                <div className="flex flex-wrap gap-2.5">
                   {emp.perks.map((perk) => (
                     <span
                       key={perk}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-50 border border-surface-100 text-xs font-medium text-surface-600
-                                 group-hover:bg-primary-50 group-hover:border-primary-100 group-hover:text-primary-700 transition-colors duration-300"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-50 dark:bg-surface-800/50 border border-surface-100 dark:border-surface-700/40 text-xs font-medium text-surface-600 dark:text-surface-300
+                                 group-hover:bg-primary-50 dark:group-hover:bg-purple-900/30 group-hover:border-primary-100 dark:group-hover:border-purple-700/40 group-hover:text-primary-700 dark:group-hover:text-purple-300 transition-colors duration-300"
                     >
                       <span>{perkIcon[perk] || defaultPerkIcon}</span>
                       {perk}
@@ -198,8 +198,8 @@ export default function RewardsPage() {
               </div>
 
               {/* Manager Note */}
-              <div className="mt-4 pt-4 border-t border-surface-100">
-                <p className="text-sm text-surface-500 leading-relaxed italic">
+              <div className="mt-5 pt-5 border-t border-surface-100 dark:border-surface-800">
+                <p className="text-sm text-surface-500 dark:text-surface-400 leading-relaxed italic">
                   &ldquo;{emp.note}&rdquo;
                 </p>
               </div>

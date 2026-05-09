@@ -66,7 +66,7 @@ function DeleteConfirmModal({ employee, onClose, onConfirm }) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl border border-surface-100 animate-[slideUp_300ms_ease]"
+        className="relative w-full max-w-md mx-4 bg-white dark:bg-surface-900 rounded-2xl shadow-2xl border border-surface-100 dark:border-surface-800 animate-[slideUp_300ms_ease]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Icon */}
@@ -76,9 +76,9 @@ function DeleteConfirmModal({ employee, onClose, onConfirm }) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
             </svg>
           </div>
-          <h2 className="text-lg font-semibold text-surface-900">Delete Employee</h2>
+          <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Delete Employee</h2>
           <p className="text-sm text-surface-400 mt-1 text-center px-6">
-            Are you sure you want to remove <span className="font-semibold text-surface-700">{employee.name}</span> ({employee.id})? This action cannot be undone.
+            Are you sure you want to remove <span className="font-semibold text-surface-700 dark:text-surface-200">{employee.name}</span> ({employee.id})? This action cannot be undone.
           </p>
         </div>
 
@@ -138,13 +138,13 @@ function AddEmployeeModal({ onClose, onAdd }) {
     >
       {/* Panel */}
       <div
-        className="relative w-full max-w-lg mx-4 bg-white rounded-2xl shadow-2xl border border-surface-100 animate-[slideUp_300ms_ease]"
+        className="relative w-full max-w-lg mx-4 bg-white dark:bg-surface-900 rounded-2xl shadow-2xl border border-surface-100 dark:border-surface-800 animate-[slideUp_300ms_ease]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-surface-100">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-surface-100 dark:border-surface-800">
           <div>
-            <h2 className="text-lg font-semibold text-surface-900">Add New Employee</h2>
+            <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Add New Employee</h2>
             <p className="text-sm text-surface-400 mt-0.5">Fill in the details below</p>
           </div>
           <button
@@ -252,15 +252,15 @@ export default function EmployeesPage() {
     <div className="space-y-8 md:space-y-10">
       {/* ── Header ── */}
       <div>
-        <h1 className="text-3xl font-bold text-surface-900">Employees</h1>
-        <p className="mt-1 text-surface-500">Manage your team members, performance, and rewards.</p>
+        <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-100">Employees</h1>
+        <p className="mt-2 text-surface-500 dark:text-surface-400">Manage your team members, performance, and rewards.</p>
       </div>
 
       {/* ── Toolbar ── */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
         {/* Search */}
         <div className="relative w-full sm:max-w-sm">
-          <span className="absolute inset-y-0 left-3 flex items-center text-surface-400 pointer-events-none">
+          <span className="absolute inset-y-0 left-4 flex items-center text-surface-400 pointer-events-none">
             <SearchIcon />
           </span>
           <input
@@ -269,7 +269,7 @@ export default function EmployeesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search employees…"
-            className="w-full rounded-xl border border-surface-200 bg-white pl-11 pr-4 py-2.5 text-sm text-surface-800 placeholder:text-surface-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400 transition-all duration-200"
+            className="w-full rounded-xl border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 pl-12 pr-5 py-3 text-sm text-surface-800 dark:text-surface-200 placeholder:text-surface-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400 transition-all duration-200"
           />
         </div>
 
@@ -277,7 +277,7 @@ export default function EmployeesPage() {
         <button
           id="add-employee-btn"
           onClick={() => setShowModal(true)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary-600 to-primary-700 text-white text-sm font-semibold shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer shrink-0"
+          className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-primary-700 text-white text-sm font-semibold shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer shrink-0"
         >
           <PlusIcon />
           Add Employee
@@ -285,15 +285,15 @@ export default function EmployeesPage() {
       </div>
 
       {/* ── Table ── */}
-      <div className="bg-white rounded-2xl shadow-sm border border-surface-100 overflow-hidden">
+      <div className="bg-white dark:bg-surface-900/80 rounded-2xl shadow-sm border border-purple-100/60 dark:border-purple-900/30 overflow-hidden backdrop-blur-sm transition-colors duration-300">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[740px]">
             <thead>
-              <tr className="border-b border-surface-100 bg-surface-50/60">
+              <tr className="border-b border-surface-100 dark:border-surface-800 bg-surface-50/60 dark:bg-surface-800/40">
                 {["Name", "Employee ID", "Department", "Role", "Rating", "Reward", "Actions"].map((h) => (
                   <th
                     key={h}
-                    className="text-left text-xs font-semibold text-surface-500 uppercase tracking-wider px-6 py-4"
+                    className="text-left text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider px-7 py-4"
                   >
                     {h}
                   </th>
@@ -301,7 +301,7 @@ export default function EmployeesPage() {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-surface-50">
+            <tbody className="divide-y divide-surface-50 dark:divide-surface-800">
               {filtered.length === 0 && (
                 <tr>
                   <td colSpan={7} className="px-6 py-16 text-center text-sm text-surface-400">
@@ -313,39 +313,39 @@ export default function EmployeesPage() {
               {filtered.map((emp) => (
                 <tr
                   key={emp.id}
-                  className="hover:bg-surface-50/60 transition-colors duration-150"
+                  className="hover:bg-surface-50/60 dark:hover:bg-surface-800/40 transition-colors duration-150"
                 >
                   {/* Name + Avatar */}
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700 text-xs font-bold shrink-0">
+                  <td className="px-7 py-5">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700 text-xs font-bold shrink-0">
                         {emp.name.split(" ").map((n) => n[0]).join("")}
                       </div>
-                      <span className="text-sm font-medium text-surface-800 whitespace-nowrap">
+                      <span className="text-sm font-medium text-surface-800 dark:text-surface-200 whitespace-nowrap">
                         {emp.name}
                       </span>
                     </div>
                   </td>
 
                   {/* ID */}
-                  <td className="px-6 py-4 text-sm text-surface-500 font-mono">
+                  <td className="px-7 py-5 text-sm text-surface-500 dark:text-surface-400 font-mono">
                     {emp.id}
                   </td>
 
                   {/* Department */}
-                  <td className="px-6 py-4 text-sm text-surface-600">
+                  <td className="px-7 py-5 text-sm text-surface-600 dark:text-surface-400">
                     {emp.department}
                   </td>
 
                   {/* Role */}
-                  <td className="px-6 py-4 text-sm text-surface-600">
+                  <td className="px-7 py-5 text-sm text-surface-600 dark:text-surface-400">
                     {emp.role}
                   </td>
 
                   {/* Rating */}
-                  <td className="px-6 py-4">
+                  <td className="px-7 py-5">
                     <span
-                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${ratingBadge(emp.rating)}`}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${ratingBadge(emp.rating)}`}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5">
                         <path fillRule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clipRule="evenodd" />
@@ -355,20 +355,20 @@ export default function EmployeesPage() {
                   </td>
 
                   {/* Reward */}
-                  <td className="px-6 py-4">
+                  <td className="px-7 py-5">
                     <span
-                      className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ${rewardColor[emp.reward] || "bg-surface-100 text-surface-600"}`}
+                      className={`inline-flex px-3 py-1.5 rounded-full text-xs font-semibold ${rewardColor[emp.reward] || "bg-surface-100 text-surface-600"}`}
                     >
                       {emp.reward}
                     </span>
                   </td>
 
                   {/* Delete */}
-                  <td className="px-6 py-4">
+                  <td className="px-7 py-5">
                     <button
                       id={`delete-${emp.id}`}
                       onClick={() => setDeleteTarget(emp)}
-                      className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-surface-400 hover:text-rose-600 hover:bg-rose-50 transition-colors duration-150 cursor-pointer"
+                      className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-surface-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors duration-150 cursor-pointer"
                       title={`Delete ${emp.name}`}
                     >
                       <TrashIcon />
@@ -381,10 +381,10 @@ export default function EmployeesPage() {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-6 py-3 border-t border-surface-100 bg-surface-50/40">
+        <div className="flex items-center justify-between px-7 py-4 border-t border-surface-100 dark:border-surface-800 bg-surface-50/40 dark:bg-surface-800/30">
           <p className="text-xs text-surface-400">
-            Showing <span className="font-semibold text-surface-600">{filtered.length}</span> of{" "}
-            <span className="font-semibold text-surface-600">{employees.length}</span> employees
+            Showing <span className="font-semibold text-surface-600 dark:text-surface-300">{filtered.length}</span> of{" "}
+            <span className="font-semibold text-surface-600 dark:text-surface-300">{employees.length}</span> employees
           </p>
         </div>
       </div>

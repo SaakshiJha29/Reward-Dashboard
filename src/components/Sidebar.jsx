@@ -36,7 +36,20 @@ const menuItems = [
   { key: "Rewards", label: "Rewards" },
 ];
 
-export default function Sidebar({ activePage, onNavigate, isMobileMenuOpen, setIsMobileMenuOpen }) {
+/* Sun / Moon icons for theme toggle */
+const SunIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+  </svg>
+);
+
+export default function Sidebar({ activePage, onNavigate, isMobileMenuOpen, setIsMobileMenuOpen, dark, toggle }) {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -112,6 +125,26 @@ export default function Sidebar({ activePage, onNavigate, isMobileMenuOpen, setI
           );
         })}
       </nav>
+
+      {/* ── Theme Toggle ── */}
+      <div className={`px-5 pt-4 pb-2 ${collapsed ? 'flex justify-center' : ''}`}>
+        <button
+          id="theme-toggle"
+          onClick={toggle}
+          className={`
+            flex items-center gap-3 w-full rounded-2xl
+            px-5 py-4 text-[15px] font-semibold
+            transition-all duration-300 ease-out cursor-pointer
+            text-purple-700 dark:text-purple-300 hover:bg-purple-200/50 dark:hover:bg-surface-800 hover:text-purple-900 dark:hover:text-purple-100 hover:scale-[1.02]
+          `}
+          title={dark ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          <span className="shrink-0 text-purple-500 dark:text-purple-400">
+            {dark ? <SunIcon /> : <MoonIcon />}
+          </span>
+          {!collapsed && <span className="whitespace-nowrap">{dark ? 'Light Mode' : 'Dark Mode'}</span>}
+        </button>
+      </div>
 
       {/* ── Collapse Toggle ── */}
       <div className="px-6 py-6 border-t border-purple-100 dark:border-surface-800 hidden md:block">

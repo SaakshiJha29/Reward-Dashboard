@@ -104,12 +104,12 @@ function KpiBar({ label, value }) {
     : "from-rose-500 to-rose-400";
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-surface-600">{label}</span>
-        <span className="text-xs font-bold text-surface-700">{value}%</span>
+        <span className="text-xs font-medium text-surface-600 dark:text-surface-400">{label}</span>
+        <span className="text-xs font-bold text-surface-700 dark:text-surface-200">{value}%</span>
       </div>
-      <div className="w-full h-2 bg-surface-100 rounded-full overflow-hidden">
+      <div className="w-full h-2.5 bg-surface-100 dark:bg-surface-800 rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full bg-gradient-to-r ${barColor} transition-all duration-700 ease-out`}
           style={{ width: `${value}%` }}
@@ -129,12 +129,12 @@ export default function PerformancePage() {
     <div className="space-y-8 md:space-y-10">
       {/* ── Header ── */}
       <div>
-        <h1 className="text-3xl font-bold text-surface-900">Performance</h1>
-        <p className="mt-1 text-surface-500">Review KPI scores, ratings, and manager feedback for each team member.</p>
+        <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-100">Performance</h1>
+        <p className="mt-2 text-surface-500 dark:text-surface-400">Review KPI scores, ratings, and manager feedback for each team member.</p>
       </div>
 
       {/* ── Employee Cards ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
         {employees.map((emp) => {
           const isTop = emp.id === topPerformerId;
           const isExpanded = expandedId === emp.id;
@@ -143,11 +143,11 @@ export default function PerformancePage() {
             <div
               key={emp.id}
               className={`
-                relative bg-white rounded-2xl shadow-sm border overflow-hidden
-                transition-all duration-300 hover:shadow-md
+                relative bg-white dark:bg-surface-900/80 rounded-2xl shadow-sm border overflow-hidden
+                transition-all duration-300 hover:shadow-md backdrop-blur-sm p-1
                 ${isTop
-                  ? "border-amber-300 ring-2 ring-amber-200/50"
-                  : "border-surface-100"
+                  ? "border-amber-300 dark:border-amber-700/50 ring-2 ring-amber-200/50 dark:ring-amber-700/30"
+                  : "border-purple-100/60 dark:border-purple-900/30"
                 }
               `}
             >
@@ -161,11 +161,11 @@ export default function PerformancePage() {
               )}
 
               {/* Card Header */}
-              <div className="p-6 pb-0">
-                <div className="flex items-center gap-4">
+              <div className="p-7 pb-0">
+                <div className="flex items-center gap-5">
                   {/* Avatar */}
                   <div className={`
-                    flex items-center justify-center w-12 h-12 rounded-xl text-sm font-bold shrink-0
+                    flex items-center justify-center w-13 h-13 rounded-xl text-sm font-bold shrink-0
                     ${isTop
                       ? "bg-gradient-to-br from-amber-400 to-yellow-500 text-white shadow-lg shadow-amber-500/25"
                       : "bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700"
@@ -176,29 +176,29 @@ export default function PerformancePage() {
 
                   {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base font-semibold text-surface-900">{emp.name}</h3>
-                    <p className="text-sm text-surface-500">{emp.role} · {emp.department}</p>
+                    <h3 className="text-base font-semibold text-surface-900 dark:text-surface-100">{emp.name}</h3>
+                    <p className="text-sm text-surface-500 dark:text-surface-400">{emp.role} · {emp.department}</p>
                   </div>
 
                   {/* Rating */}
                   <div className="text-right shrink-0">
                     <StarRating rating={emp.rating} />
-                    <p className="text-xs text-surface-400 mt-1 font-medium">{emp.rating.toFixed(1)} / 5.0</p>
+                    <p className="text-xs text-surface-400 dark:text-surface-500 mt-1 font-medium">{emp.rating.toFixed(1)} / 5.0</p>
                   </div>
                 </div>
               </div>
 
               {/* KPI Bars */}
-              <div className="px-6 pt-5 pb-2 space-y-3">
+              <div className="px-7 pt-6 pb-3 space-y-4">
                 {Object.entries(emp.kpis).map(([label, value]) => (
                   <KpiBar key={label} label={label} value={value} />
                 ))}
               </div>
 
               {/* Avg KPI + Expand */}
-              <div className="px-6 py-4 flex items-center justify-between border-t border-surface-50">
+              <div className="px-7 py-5 flex items-center justify-between border-t border-surface-50 dark:border-surface-800">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-surface-400">Avg KPI:</span>
+                  <span className="text-xs text-surface-400 dark:text-surface-500">Avg KPI:</span>
                   <span className={`text-sm font-bold ${
                     Object.values(emp.kpis).reduce((a, b) => a + b, 0) / Object.values(emp.kpis).length >= 90
                       ? "text-emerald-600"
@@ -210,7 +210,7 @@ export default function PerformancePage() {
 
                 <button
                   onClick={() => setExpandedId(isExpanded ? null : emp.id)}
-                  className="text-xs font-semibold text-primary-600 hover:text-primary-800 transition-colors cursor-pointer flex items-center gap-1"
+                  className="text-xs font-semibold text-primary-600 hover:text-primary-800 transition-colors cursor-pointer flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20"
                 >
                   {isExpanded ? "Hide" : "View"} Feedback
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
@@ -226,15 +226,15 @@ export default function PerformancePage() {
                   isExpanded ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="px-6 pb-6">
-                  <div className="bg-surface-50 rounded-xl p-4 border border-surface-100">
-                    <div className="flex items-center gap-2 mb-2">
+                <div className="px-7 pb-7">
+                  <div className="bg-surface-50 dark:bg-surface-800/60 rounded-xl p-5 border border-surface-100 dark:border-surface-700/50">
+                    <div className="flex items-center gap-2.5 mb-3">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary-500">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                       </svg>
-                      <span className="text-xs font-semibold text-surface-600 uppercase tracking-wider">Manager Feedback</span>
+                      <span className="text-xs font-semibold text-surface-600 dark:text-surface-300 uppercase tracking-wider">Manager Feedback</span>
                     </div>
-                    <p className="text-sm text-surface-600 leading-relaxed">{emp.feedback}</p>
+                    <p className="text-sm text-surface-600 dark:text-surface-400 leading-relaxed">{emp.feedback}</p>
                   </div>
                 </div>
               </div>
