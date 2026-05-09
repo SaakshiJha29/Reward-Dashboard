@@ -36,31 +36,44 @@ const menuItems = [
   { key: "Rewards", label: "Rewards" },
 ];
 
-export default function Sidebar({ activePage, onNavigate }) {
+export default function Sidebar({ activePage, onNavigate, isMobileMenuOpen, setIsMobileMenuOpen }) {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
     <aside
       className={`
-        relative flex flex-col shrink-0
+        fixed md:relative flex flex-col shrink-0
         bg-purple-50 dark:bg-surface-900 border-r border-purple-100 dark:border-surface-800
-        h-screen sticky top-0
-        transition-all duration-300 ease-in-out
+        h-full md:h-screen top-0 z-50
+        transition-transform md:transition-all duration-300 ease-in-out
+        ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
         ${collapsed ? "w-20" : "w-64"}
-        shadow-sm
+        shadow-2xl md:shadow-sm
       `}
     >
       {/* ── Logo / Brand ── */}
-      <div className="flex items-center gap-4 px-8 py-10 border-b border-purple-100 dark:border-surface-800">
-        <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-purple-600 shadow-lg shadow-purple-600/20 shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6 text-white">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-          </svg>
+      <div className="flex items-center justify-between gap-4 px-8 py-10 border-b border-purple-100 dark:border-surface-800">
+        <div className="flex items-center gap-4 overflow-hidden">
+          <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-purple-600 shadow-lg shadow-purple-600/20 shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6 text-white">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+            </svg>
+          </div>
+          {!collapsed && (
+            <span className="text-[22px] font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-purple-500 drop-shadow-sm whitespace-nowrap">
+              REWARDHUB
+            </span>
+          )}
         </div>
-        {!collapsed && (
-          <span className="text-[22px] font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-purple-500 drop-shadow-sm whitespace-nowrap">
-            REWARDHUB
-          </span>
+        {isMobileMenuOpen && (
+          <button 
+            className="md:hidden p-2 -mr-2 text-purple-600 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-surface-800 rounded-xl transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         )}
       </div>
 
@@ -101,7 +114,7 @@ export default function Sidebar({ activePage, onNavigate }) {
       </nav>
 
       {/* ── Collapse Toggle ── */}
-      <div className="px-6 py-6 border-t border-purple-100 dark:border-surface-800">
+      <div className="px-6 py-6 border-t border-purple-100 dark:border-surface-800 hidden md:block">
         <button
           id="sidebar-toggle"
           onClick={() => setCollapsed((c) => !c)}

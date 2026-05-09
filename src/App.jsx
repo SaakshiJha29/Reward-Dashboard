@@ -26,18 +26,50 @@ const MoonIcon = () => (
   </svg>
 );
 
+const MenuIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+  </svg>
+);
+
 function App() {
   const [activePage, setActivePage] = useState("Dashboard");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { dark, toggle } = useTheme();
   const ActiveComponent = pages[activePage];
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-surface-50 dark:bg-surface-950 transition-colors duration-300">
-      <Sidebar activePage={activePage} onNavigate={setActivePage} />
+      {/* Mobile Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity backdrop-blur-sm"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      <Sidebar 
+        activePage={activePage} 
+        onNavigate={(page) => {
+          setActivePage(page);
+          setIsMobileMenuOpen(false);
+        }}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
 
       <div className="flex-1 flex flex-col h-full min-w-0 overflow-y-auto overflow-x-hidden">
         {/* Top Navbar */}
-        <header className="flex items-center justify-end px-8 md:px-14 py-5 bg-white/80 dark:bg-surface-900/80 backdrop-blur-md shadow-sm border-b border-purple-100 dark:border-surface-800 sticky top-0 z-10 transition-colors duration-300">
+        <header className="flex items-center justify-between md:justify-end px-6 sm:px-8 md:px-14 py-5 bg-white/80 dark:bg-surface-900/80 backdrop-blur-md shadow-sm border-b border-purple-100 dark:border-surface-800 sticky top-0 z-10 transition-colors duration-300">
+          <div className="flex items-center md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-2 -ml-2 text-purple-600 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-surface-800 rounded-xl transition-colors cursor-pointer"
+              title="Open menu"
+            >
+              <MenuIcon />
+            </button>
+          </div>
           <div className="flex items-center gap-4 ml-auto">
             <button
               id="theme-toggle"
@@ -54,7 +86,7 @@ function App() {
           </div>
         </header>
 
-        <main className="flex-1 pl-12 pr-8 md:pl-20 md:pr-16 py-12 md:py-16 w-full max-w-screen-2xl mx-auto">
+        <main className="flex-1 p-6 sm:p-8 md:p-12 lg:p-16 xl:p-20 w-full max-w-screen-2xl mx-auto transition-all duration-300">
           <ActiveComponent />
         </main>
       </div>
