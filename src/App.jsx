@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import DashboardPage from "./pages/DashboardPage";
 import EmployeesPage from "./pages/EmployeesPage";
@@ -35,8 +35,48 @@ const MenuIcon = () => (
 function App() {
   const [activePage, setActivePage] = useState("Dashboard");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { dark, toggle } = useTheme();
   const ActiveComponent = pages[activePage];
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  /* ── Splash / Loader ── */
+  if (loading) {
+    return (
+      <div className="loader-screen">
+        {/* Animated glow rings */}
+        <div className="loader-ring loader-ring--outer" />
+        <div className="loader-ring loader-ring--inner" />
+
+        {/* Trophy icon */}
+        <div className="loader-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" className="loader-trophy">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+            <path d="M4 22h16" />
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22" />
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22" />
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+          </svg>
+        </div>
+
+        {/* Branding */}
+        <h1 className="loader-title">RewardHub</h1>
+        <p className="loader-subtitle">Loading your dashboard…</p>
+
+        {/* Dot animation */}
+        <div className="loader-dots">
+          <span className="loader-dot" />
+          <span className="loader-dot" />
+          <span className="loader-dot" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex gap-x-0 md:gap-x-8 h-screen w-full overflow-hidden bg-surface-50 dark:bg-surface-950 transition-colors duration-300">
