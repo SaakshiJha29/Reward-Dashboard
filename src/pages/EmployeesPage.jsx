@@ -50,6 +50,58 @@ const CloseIcon = () => (
   </svg>
 );
 
+const TrashIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+    <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+  </svg>
+);
+
+/* ═══════════════════════════════════════════════════
+   Delete Confirmation Modal
+   ═══════════════════════════════════════════════════ */
+function DeleteConfirmModal({ employee, onClose, onConfirm }) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/40 backdrop-blur-sm animate-[fadeIn_200ms_ease]"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl border border-surface-100 animate-[slideUp_300ms_ease]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Icon */}
+        <div className="flex flex-col items-center pt-8 pb-2">
+          <div className="flex items-center justify-center w-14 h-14 rounded-full bg-rose-50 text-rose-500 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+            </svg>
+          </div>
+          <h2 className="text-lg font-semibold text-surface-900">Delete Employee</h2>
+          <p className="text-sm text-surface-400 mt-1 text-center px-6">
+            Are you sure you want to remove <span className="font-semibold text-surface-700">{employee.name}</span> ({employee.id})? This action cannot be undone.
+          </p>
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center justify-center gap-3 px-6 py-6">
+          <button
+            onClick={onClose}
+            className="px-5 py-2.5 rounded-xl text-sm font-medium text-surface-600 hover:bg-surface-100 transition-colors cursor-pointer"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => { onConfirm(employee.id); onClose(); }}
+            className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 text-white text-sm font-semibold shadow-lg shadow-rose-500/25 hover:shadow-rose-500/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ═══════════════════════════════════════════════════
    Add Employee Modal
    ═══════════════════════════════════════════════════ */
@@ -187,12 +239,14 @@ export default function EmployeesPage() {
   const [employees, setEmployees] = useState(initialEmployees);
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   const filtered = employees.filter((emp) =>
     emp.name.toLowerCase().includes(search.toLowerCase())
   );
 
   const addEmployee = (emp) => setEmployees((prev) => [emp, ...prev]);
+  const deleteEmployee = (id) => setEmployees((prev) => prev.filter((e) => e.id !== id));
 
   return (
     <div className="space-y-8 md:space-y-10">
@@ -236,7 +290,7 @@ export default function EmployeesPage() {
           <table className="w-full min-w-[740px]">
             <thead>
               <tr className="border-b border-surface-100 bg-surface-50/60">
-                {["Name", "Employee ID", "Department", "Role", "Rating", "Reward"].map((h) => (
+                {["Name", "Employee ID", "Department", "Role", "Rating", "Reward", "Actions"].map((h) => (
                   <th
                     key={h}
                     className="text-left text-xs font-semibold text-surface-500 uppercase tracking-wider px-6 py-4"
@@ -250,7 +304,7 @@ export default function EmployeesPage() {
             <tbody className="divide-y divide-surface-50">
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-6 py-16 text-center text-sm text-surface-400">
+                  <td colSpan={7} className="px-6 py-16 text-center text-sm text-surface-400">
                     No employees found matching &ldquo;{search}&rdquo;
                   </td>
                 </tr>
@@ -308,6 +362,18 @@ export default function EmployeesPage() {
                       {emp.reward}
                     </span>
                   </td>
+
+                  {/* Delete */}
+                  <td className="px-6 py-4">
+                    <button
+                      id={`delete-${emp.id}`}
+                      onClick={() => setDeleteTarget(emp)}
+                      className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-surface-400 hover:text-rose-600 hover:bg-rose-50 transition-colors duration-150 cursor-pointer"
+                      title={`Delete ${emp.name}`}
+                    >
+                      <TrashIcon />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -323,11 +389,19 @@ export default function EmployeesPage() {
         </div>
       </div>
 
-      {/* ── Modal ── */}
+      {/* ── Modals ── */}
       {showModal && (
         <AddEmployeeModal
           onClose={() => setShowModal(false)}
           onAdd={addEmployee}
+        />
+      )}
+
+      {deleteTarget && (
+        <DeleteConfirmModal
+          employee={deleteTarget}
+          onClose={() => setDeleteTarget(null)}
+          onConfirm={deleteEmployee}
         />
       )}
     </div>
