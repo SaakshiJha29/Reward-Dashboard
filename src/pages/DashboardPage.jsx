@@ -193,7 +193,7 @@ export default function DashboardPage() {
         <h1 className="relative z-10 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
           Reward<span className="text-purple-200">Hub</span>
         </h1>
-        <p className="relative z-10 mt-6 text-lg sm:text-xl text-purple-100/90 max-w-xl mx-auto leading-relaxed font-medium tracking-wide">
+        <p className="relative z-10 mt-8 text-base sm:text-lg lg:text-xl text-purple-100/90 max-w-2xl mx-auto leading-loose font-medium text-center">
           Recognize excellence, fuel motivation — track your team&apos;s performance
           and celebrate every milestone in one powerful dashboard.
         </p>
@@ -214,12 +214,12 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Stat Cards ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10">
         {statCards.map((card) => (
           <div
             key={card.label}
             className={`relative overflow-hidden bg-gradient-to-br ${card.gradient} rounded-[2rem] shadow-sm border border-white/40 dark:border-white/5
-                       hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 ease-out`}
+                       hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.01] transition-all duration-300 ease-out`}
           >
             {/* decorative blob */}
             <div
