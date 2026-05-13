@@ -1,0 +1,150 @@
+/* RewardPoint admin shell — light + dark (scoped under .admin-app) */
+
+.admin-app {
+  --admin-bg: #f8f9ff;
+  --admin-on-bg: #121c2a;
+  --admin-muted: #3e4850;
+  --admin-surface: #ffffff;
+  --admin-surface-low: #eff4ff;
+  --admin-surface-container: #e6eeff;
+  --admin-surface-high: #dee9fc;
+  --admin-outline-variant: #bec8d2;
+  --admin-outline: #6e7881;
+  --admin-primary: #006591;
+  --admin-on-primary: #ffffff;
+  --admin-secondary: #a200ba;
+  --admin-on-secondary: #ffffff;
+  --admin-primary-container: #0ea5e9;
+  --admin-on-primary-container: #003751;
+  --admin-error: #ba1a1a;
+  --admin-error-container: #ffdad6;
+  --admin-on-error-container: #93000a;
+  --admin-tertiary: #006c49;
+  --admin-inverse-on: #eaf1ff;
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--admin-bg);
+  color: var(--admin-on-bg);
+}
+
+.dark .admin-app {
+  --admin-bg: #0f172a;
+  --admin-on-bg: #f1f5f9;
+  --admin-muted: #94a3b8;
+  --admin-surface: rgba(15, 23, 42, 0.55);
+  --admin-surface-low: rgba(30, 41, 59, 0.5);
+  --admin-surface-container: rgba(51, 65, 85, 0.35);
+  --admin-surface-high: rgba(71, 85, 105, 0.45);
+  --admin-outline-variant: rgba(148, 163, 184, 0.35);
+  --admin-outline: rgba(148, 163, 184, 0.5);
+  --admin-primary: #89ceff;
+  --admin-on-primary: #003751;
+  --admin-secondary: #ea57ff;
+  --admin-on-secondary: #ffffff;
+  --admin-primary-container: #0ea5e9;
+  --admin-on-primary-container: #001e2f;
+  --admin-error-container: rgba(186, 26, 26, 0.25);
+  --admin-on-error-container: #fecaca;
+  --admin-tertiary: #4edea3;
+  --admin-inverse-on: #0f172a;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.35rem;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.admin-app .material-symbols-filled {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.admin-page {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.admin-card {
+  background-color: var(--admin-surface);
+  border: 1px solid var(--admin-outline-variant);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.dark .admin-app .admin-card {
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.admin-card--neon {
+  box-shadow: 0 0 15px rgba(162, 0, 186, 0.22), inset 0 0 4px rgba(162, 0, 186, 0.12);
+  border-color: rgba(162, 0, 186, 0.35);
+}
+
+.dark .admin-app .admin-card--neon {
+  box-shadow: 0 0 18px rgba(234, 87, 255, 0.25), inset 0 0 6px rgba(234, 87, 255, 0.12);
+  border-color: rgba(234, 87, 255, 0.35);
+}
+
+.admin-sidebar {
+  background-color: var(--admin-surface-low);
+  border-color: var(--admin-outline-variant);
+}
+
+.dark .admin-app .admin-sidebar {
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(14px);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.admin-main-scroll {
+  background-color: var(--admin-bg);
+}
+
+.admin-btn-primary {
+  background-color: var(--admin-primary);
+  color: var(--admin-on-primary);
+}
+
+.dark .admin-app .admin-btn-primary {
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(234, 87, 255, 0.25);
+}
+
+.admin-btn-ghost {
+  border: 1px solid var(--admin-outline);
+  color: var(--admin-muted);
+  background: transparent;
+}
+
+.admin-mobile-dock {
+  background-color: var(--admin-surface-container);
+  border-color: var(--admin-outline-variant);
+}
+
+.dark .admin-app .admin-mobile-dock {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -4px 20px rgba(162, 0, 186, 0.18);
+}
+
+.admin-app ::-webkit-scrollbar-thumb {
+  background: var(--admin-outline-variant);
+}
+
+.admin-modal-panel {
+  background: #ffffff;
+  border: 1px solid var(--admin-outline-variant);
+}
+
+.dark .admin-app .admin-modal-panel {
+  background: rgba(15, 23, 42, 0.94);
+  border-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+}

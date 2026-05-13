@@ -127,17 +127,17 @@ export default function RewardsPage() {
   const totalBudget = rewardData.reduce((s, r) => s + r.bonus, 0);
 
   return (
-    <div className="space-y-8 md:space-y-10">
+    <div className="admin-page space-y-8 md:space-y-10">
       {/* ── Header ── */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-100">Rewards</h1>
-          <p className="mt-2 text-surface-500 dark:text-surface-400">View bonuses, perks, and recognitions awarded to employees.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-[var(--admin-on-bg)]">Rewards</h1>
+          <p className="mt-2 text-[15px] font-medium text-[var(--admin-muted)]">View bonuses, perks, and recognitions awarded to employees.</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-3 px-5 py-3 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl border border-emerald-100 dark:border-emerald-800/40">
-            <span className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">Total Distributed:</span>
-            <span className="text-lg font-bold text-emerald-700 dark:text-emerald-300">{formatCurrency(totalBudget)}</span>
+          <div className="flex items-center gap-3 px-5 py-3 admin-card border-[var(--admin-tertiary)]/25 bg-[var(--admin-surface-low)]/90 dark:bg-emerald-950/20">
+            <span className="text-sm font-semibold text-[var(--admin-tertiary)]">Total distributed:</span>
+            <span className="text-lg font-bold text-[var(--admin-on-bg)]">{formatCurrency(totalBudget)}</span>
           </div>
         </div>
       </div>
@@ -147,8 +147,7 @@ export default function RewardsPage() {
         {rewardData.map((emp) => (
           <div
             key={emp.id}
-            className="group relative bg-white dark:bg-surface-900/80 rounded-2xl shadow-sm border border-purple-100/60 dark:border-purple-900/30
-                       hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden backdrop-blur-sm"
+            className="group relative admin-card overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
           >
             {/* Gradient accent bar */}
             <div className={`h-1.5 bg-gradient-to-r ${emp.badgeColor}`} />
@@ -163,8 +162,8 @@ export default function RewardsPage() {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-base font-semibold text-surface-900 dark:text-surface-100">{emp.name}</h3>
-                  <p className="text-sm text-surface-400 dark:text-surface-500 mt-0.5">{emp.department}</p>
+                  <h3 className="text-base font-semibold text-[var(--admin-on-bg)]">{emp.name}</h3>
+                  <p className="text-sm text-[var(--admin-muted)] mt-0.5">{emp.department}</p>
                 </div>
 
                 <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r ${emp.badgeColor} text-white shadow-sm shrink-0`}>
@@ -173,22 +172,22 @@ export default function RewardsPage() {
               </div>
 
               {/* Bonus Amount */}
-              <div className="mt-6 p-5 rounded-xl bg-surface-50 dark:bg-surface-800/50 border border-surface-100 dark:border-surface-700/40">
-                <p className="text-xs font-medium text-surface-400 dark:text-surface-500 uppercase tracking-wider">Bonus Amount</p>
-                <p className="mt-1.5 text-2xl font-bold text-surface-900 dark:text-surface-100">
+              <div className="mt-6 p-5 rounded-xl bg-[var(--admin-surface-low)]/90 border border-[var(--admin-outline-variant)]/60 dark:bg-white/5 dark:border-white/10">
+                <p className="text-xs font-medium text-[var(--admin-muted)] uppercase tracking-wider">Bonus amount</p>
+                <p className="mt-1.5 text-2xl font-bold text-[var(--admin-on-bg)]">
                   {formatCurrency(emp.bonus)}
                 </p>
               </div>
 
               {/* Perks */}
               <div className="mt-5">
-                <p className="text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider mb-3">Perks & Benefits</p>
+                <p className="text-xs font-semibold text-[var(--admin-muted)] uppercase tracking-wider mb-3">Perks & benefits</p>
                 <div className="flex flex-wrap gap-2.5">
                   {emp.perks.map((perk) => (
                     <span
                       key={perk}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-50 dark:bg-surface-800/50 border border-surface-100 dark:border-surface-700/40 text-xs font-medium text-surface-600 dark:text-surface-300
-                                 group-hover:bg-primary-50 dark:group-hover:bg-purple-900/30 group-hover:border-primary-100 dark:group-hover:border-purple-700/40 group-hover:text-primary-700 dark:group-hover:text-purple-300 transition-colors duration-300"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--admin-surface-low)] border border-[var(--admin-outline-variant)]/50 text-xs font-medium text-[var(--admin-on-bg)]
+                                 group-hover:border-[var(--admin-primary)]/40 group-hover:bg-[var(--admin-surface-high)] transition-colors duration-300"
                     >
                       <span>{perkIcon[perk] || defaultPerkIcon}</span>
                       {perk}
@@ -198,8 +197,8 @@ export default function RewardsPage() {
               </div>
 
               {/* Manager Note */}
-              <div className="mt-5 pt-5 border-t border-surface-100 dark:border-surface-800">
-                <p className="text-sm text-surface-500 dark:text-surface-400 leading-relaxed italic">
+              <div className="mt-5 pt-5 border-t border-[var(--admin-outline-variant)]/60 dark:border-white/10">
+                <p className="text-sm text-[var(--admin-muted)] leading-relaxed italic">
                   &ldquo;{emp.note}&rdquo;
                 </p>
               </div>

@@ -7,6 +7,11 @@ const icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
     </svg>
   ),
+  Attendance: (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5" />
+    </svg>
+  ),
   Employees: (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
@@ -29,12 +34,20 @@ const icons = {
   ),
 };
 
-const allMenuItems = [
-  { key: "Dashboard", label: "Dashboard" },
-  { key: "Employees", label: "Employees", adminOnly: true },
-  { key: "Performance", label: "Performance" },
-  { key: "Rewards", label: "Rewards" },
-];
+const navByRole = {
+  admin: [
+    { key: "Dashboard", label: "Dashboard" },
+    { key: "Employees", label: "Employees" },
+    { key: "Performance", label: "Performance" },
+    { key: "Rewards", label: "Rewards" },
+  ],
+  employee: [
+    { key: "Dashboard", label: "Dashboard" },
+    { key: "Attendance", label: "Attendance" },
+    { key: "Performance", label: "Performance" },
+    { key: "Rewards", label: "Rewards" },
+  ],
+};
 
 /* Sun / Moon icons for theme toggle */
 const SunIcon = () => (
@@ -58,39 +71,68 @@ export default function Sidebar({
   toggle,
   userRole,
   onLogout,
+  adminChrome = false,
 }) {
   const [collapsed, setCollapsed] = useState(false);
-  const menuItems = allMenuItems.filter((item) => !item.adminOnly || userRole === "admin");
+  const menuItems = navByRole[userRole] ?? navByRole.admin;
 
-  return (
-    <aside
-      className={`
-        fixed md:relative flex flex-col shrink-0
+  const asideShell = adminChrome
+    ? `fixed md:relative flex flex-col shrink-0 admin-sidebar border-r h-full md:h-screen top-0 z-50
+        transition-transform md:transition-all duration-300 ease-in-out
+        ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
+        ${collapsed ? "w-20" : "w-64"}
+        shadow-2xl md:shadow-sm`
+    : `fixed md:relative flex flex-col shrink-0
         bg-purple-50 dark:bg-surface-900 border-r border-purple-100 dark:border-surface-800
         h-full md:h-screen top-0 z-50
         transition-transform md:transition-all duration-300 ease-in-out
         ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
         ${collapsed ? "w-20" : "w-64"}
-        shadow-2xl md:shadow-md
-      `}
-    >
-      {/* ── Logo / Brand ── */}
-      <div className="flex items-center justify-between gap-4 px-8 py-10 border-b border-purple-100 dark:border-surface-800">
+        shadow-2xl md:shadow-md`;
+
+  return (
+    <aside className={asideShell}>
+      <div
+        className={
+          adminChrome
+            ? "flex items-center justify-between gap-4 px-6 py-8 border-b border-[var(--admin-outline-variant)]"
+            : "flex items-center justify-between gap-4 px-8 py-10 border-b border-purple-100 dark:border-surface-800"
+        }
+      >
         <div className="flex items-center gap-4 overflow-hidden">
-          <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-purple-600 shadow-lg shadow-purple-600/20 shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6 text-white">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-            </svg>
-          </div>
-          {!collapsed && (
-            <span className="text-[22px] font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-purple-500 drop-shadow-sm whitespace-nowrap">
-              REWARDHUB
-            </span>
+          {adminChrome ? (
+            <>
+              <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-[var(--admin-primary)] dark:bg-[var(--admin-secondary)] shadow-md shrink-0">
+                <span className="material-symbols-outlined text-white text-[22px] material-symbols-filled">admin_panel_settings</span>
+              </div>
+              {!collapsed && (
+                <span className="text-xl font-extrabold tracking-tight text-[var(--admin-primary)] dark:text-[#f0abfc] whitespace-nowrap">
+                  RewardPoint
+                </span>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-purple-600 shadow-lg shadow-purple-600/20 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6 text-white">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                </svg>
+              </div>
+              {!collapsed && (
+                <span className="text-[22px] font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-purple-500 drop-shadow-sm whitespace-nowrap">
+                  REWARDHUB
+                </span>
+              )}
+            </>
           )}
         </div>
         {isMobileMenuOpen && (
-          <button 
-            className="md:hidden p-2 -mr-2 text-purple-600 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-surface-800 rounded-xl transition-colors"
+          <button
+            className={
+              adminChrome
+                ? "md:hidden p-2 -mr-2 rounded-xl text-[var(--admin-on-bg)] hover:bg-[var(--admin-surface-high)] transition-colors"
+                : "md:hidden p-2 -mr-2 text-purple-600 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-surface-800 rounded-xl transition-colors"
+            }
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
@@ -100,10 +142,17 @@ export default function Sidebar({
         )}
       </div>
 
-      {/* ── Navigation ── */}
-      <nav className="flex-1 px-5 py-10 space-y-4 overflow-y-auto">
+      <nav className={`flex-1 px-5 py-8 space-y-3 overflow-y-auto ${adminChrome ? "" : ""}`}>
         {menuItems.map(({ key, label }) => {
           const isActive = activePage === key;
+          const adminActive =
+            "bg-[var(--admin-primary)] text-white shadow-md dark:bg-[var(--admin-secondary)] dark:shadow-[0_0_14px_rgba(234,87,255,0.35)]";
+          const adminIdle =
+            "text-[var(--admin-muted)] hover:bg-[var(--admin-surface-high)] hover:text-[var(--admin-on-bg)] dark:hover:bg-white/5";
+          const classicActive = "bg-purple-600 text-white shadow-md scale-105";
+          const classicIdle =
+            "text-purple-700 dark:text-purple-300 hover:bg-purple-200/50 dark:hover:bg-surface-800 hover:text-purple-900 dark:hover:text-purple-100 hover:scale-[1.02]";
+
           return (
             <button
               key={key}
@@ -112,20 +161,20 @@ export default function Sidebar({
               title={collapsed ? label : undefined}
               className={`
                 group flex items-center gap-4 w-full rounded-2xl
-                px-5 py-4 text-[15px] font-semibold
+                px-5 py-3.5 text-[15px] font-semibold
                 transition-all duration-300 ease-out cursor-pointer
-                ${
-                  isActive
-                    ? "bg-purple-600 text-white shadow-md scale-105"
-                    : "text-purple-700 dark:text-purple-300 hover:bg-purple-200/50 dark:hover:bg-surface-800 hover:text-purple-900 dark:hover:text-purple-100 hover:scale-[1.02]"
-                }
+                ${isActive ? (adminChrome ? adminActive : classicActive) : adminChrome ? adminIdle : classicIdle}
               `}
             >
               <span
                 className={`shrink-0 transition-transform duration-300 ${
                   isActive
-                    ? "text-white scale-110"
-                    : "text-purple-500 dark:text-purple-400 group-hover:text-purple-700 dark:group-hover:text-purple-200 group-hover:scale-110"
+                    ? adminChrome
+                      ? "text-white"
+                      : "text-white scale-110"
+                    : adminChrome
+                      ? "text-[var(--admin-primary)] dark:text-[#f0abfc] group-hover:scale-105"
+                      : "text-purple-500 dark:text-purple-400 group-hover:text-purple-700 dark:group-hover:text-purple-200 group-hover:scale-110"
                 }`}
               >
                 {icons[key]}
@@ -148,7 +197,11 @@ export default function Sidebar({
               flex items-center gap-3 w-full rounded-2xl
               px-5 py-4 text-[15px] font-semibold
               transition-all duration-300 ease-out cursor-pointer
-              text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:scale-[1.02]
+              ${
+                adminChrome
+                  ? "text-red-700 dark:text-red-300 hover:bg-red-50/80 dark:hover:bg-red-950/30"
+                  : "text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:scale-[1.02]"
+              }
             `}
           >
             <span className="shrink-0">
@@ -170,11 +223,15 @@ export default function Sidebar({
             flex items-center gap-3 w-full rounded-2xl
             px-5 py-4 text-[15px] font-semibold
             transition-all duration-300 ease-out cursor-pointer
-            text-purple-700 dark:text-purple-300 hover:bg-purple-200/50 dark:hover:bg-surface-800 hover:text-purple-900 dark:hover:text-purple-100 hover:scale-[1.02]
+            ${
+              adminChrome
+                ? "text-[var(--admin-on-bg)] hover:bg-[var(--admin-surface-high)] dark:text-slate-200 dark:hover:bg-white/5"
+                : "text-purple-700 dark:text-purple-300 hover:bg-purple-200/50 dark:hover:bg-surface-800 hover:text-purple-900 dark:hover:text-purple-100 hover:scale-[1.02]"
+            }
           `}
           title={dark ? "Switch to light mode" : "Switch to dark mode"}
         >
-          <span className="shrink-0 text-purple-500 dark:text-purple-400">
+          <span className={`shrink-0 ${adminChrome ? "text-[var(--admin-primary)] dark:text-[#f0abfc]" : "text-purple-500 dark:text-purple-400"}`}>
             {dark ? <SunIcon /> : <MoonIcon />}
           </span>
           {!collapsed && <span className="whitespace-nowrap">{dark ? 'Light Mode' : 'Dark Mode'}</span>}
@@ -182,13 +239,19 @@ export default function Sidebar({
       </div>
 
       {/* ── Collapse Toggle ── */}
-      <div className="px-6 py-6 border-t border-purple-100 dark:border-surface-800 hidden md:block">
+      <div
+        className={`px-6 py-6 border-t hidden md:block ${
+          adminChrome ? "border-[var(--admin-outline-variant)]" : "border-purple-100 dark:border-surface-800"
+        }`}
+      >
         <button
           id="sidebar-toggle"
           onClick={() => setCollapsed((c) => !c)}
-          className="flex items-center justify-center w-full gap-2 rounded-xl px-3 py-3
-                     text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-200 hover:bg-purple-200/50 dark:hover:bg-surface-800
-                     transition-all duration-300 cursor-pointer"
+          className={
+            adminChrome
+              ? "flex items-center justify-center w-full gap-2 rounded-xl px-3 py-3 text-[var(--admin-muted)] hover:text-[var(--admin-on-bg)] hover:bg-[var(--admin-surface-high)] dark:hover:bg-white/5 transition-all duration-300 cursor-pointer"
+              : "flex items-center justify-center w-full gap-2 rounded-xl px-3 py-3 text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-200 hover:bg-purple-200/50 dark:hover:bg-surface-800 transition-all duration-300 cursor-pointer"
+          }
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           <span

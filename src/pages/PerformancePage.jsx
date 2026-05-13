@@ -126,11 +126,11 @@ export default function PerformancePage() {
   const [expandedId, setExpandedId] = useState(null);
 
   return (
-    <div className="space-y-8 md:space-y-10">
+    <div className="admin-page space-y-8 md:space-y-10">
       {/* ── Header ── */}
       <div>
-        <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-100">Performance</h1>
-        <p className="mt-2 text-surface-500 dark:text-surface-400">Review KPI scores, ratings, and manager feedback for each team member.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-[var(--admin-on-bg)]">Performance</h1>
+        <p className="mt-2 text-[15px] font-medium text-[var(--admin-muted)]">Review KPI scores, ratings, and manager feedback for each team member.</p>
       </div>
 
       {/* ── Employee Cards ── */}
@@ -143,11 +143,11 @@ export default function PerformancePage() {
             <div
               key={emp.id}
               className={`
-                relative bg-white dark:bg-surface-900/80 rounded-2xl shadow-sm border overflow-hidden
-                transition-all duration-300 hover:shadow-md backdrop-blur-sm p-1
+                relative admin-card overflow-hidden p-1
+                transition-all duration-300 hover:shadow-lg
                 ${isTop
-                  ? "border-amber-300 dark:border-amber-700/50 ring-2 ring-amber-200/50 dark:ring-amber-700/30"
-                  : "border-purple-100/60 dark:border-purple-900/30"
+                  ? "border-amber-300/90 dark:border-amber-500/40 ring-2 ring-amber-200/60 dark:ring-amber-500/25 admin-card--neon"
+                  : ""
                 }
               `}
             >
@@ -176,14 +176,14 @@ export default function PerformancePage() {
 
                   {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base font-semibold text-surface-900 dark:text-surface-100">{emp.name}</h3>
-                    <p className="text-sm text-surface-500 dark:text-surface-400">{emp.role} · {emp.department}</p>
+                    <h3 className="text-base font-semibold text-[var(--admin-on-bg)]">{emp.name}</h3>
+                    <p className="text-sm text-[var(--admin-muted)]">{emp.role} · {emp.department}</p>
                   </div>
 
                   {/* Rating */}
                   <div className="text-right shrink-0">
                     <StarRating rating={emp.rating} />
-                    <p className="text-xs text-surface-400 dark:text-surface-500 mt-1 font-medium">{emp.rating.toFixed(1)} / 5.0</p>
+                    <p className="text-xs text-[var(--admin-muted)] mt-1 font-medium">{emp.rating.toFixed(1)} / 5.0</p>
                   </div>
                 </div>
               </div>
@@ -196,9 +196,9 @@ export default function PerformancePage() {
               </div>
 
               {/* Avg KPI + Expand */}
-              <div className="px-7 py-5 flex items-center justify-between border-t border-surface-50 dark:border-surface-800">
+              <div className="px-7 py-5 flex items-center justify-between border-t border-[var(--admin-outline-variant)]/70 dark:border-white/10">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-surface-400 dark:text-surface-500">Avg KPI:</span>
+                  <span className="text-xs text-[var(--admin-muted)]">Avg KPI:</span>
                   <span className={`text-sm font-bold ${
                     Object.values(emp.kpis).reduce((a, b) => a + b, 0) / Object.values(emp.kpis).length >= 90
                       ? "text-emerald-600"
@@ -210,7 +210,7 @@ export default function PerformancePage() {
 
                 <button
                   onClick={() => setExpandedId(isExpanded ? null : emp.id)}
-                  className="text-xs font-semibold text-primary-600 hover:text-primary-800 transition-colors cursor-pointer flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20"
+                  className="text-xs font-semibold text-[var(--admin-primary)] dark:text-[#f0abfc] hover:underline transition-colors cursor-pointer flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-[var(--admin-surface-high)] dark:hover:bg-white/5"
                 >
                   {isExpanded ? "Hide" : "View"} Feedback
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"
@@ -227,14 +227,14 @@ export default function PerformancePage() {
                 }`}
               >
                 <div className="px-7 pb-7">
-                  <div className="bg-surface-50 dark:bg-surface-800/60 rounded-xl p-5 border border-surface-100 dark:border-surface-700/50">
+                  <div className="bg-[var(--admin-surface-low)]/80 dark:bg-white/5 rounded-xl p-5 border border-[var(--admin-outline-variant)]/60 dark:border-white/10">
                     <div className="flex items-center gap-2.5 mb-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-[var(--admin-primary)] dark:text-[#f0abfc]">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                       </svg>
-                      <span className="text-xs font-semibold text-surface-600 dark:text-surface-300 uppercase tracking-wider">Manager Feedback</span>
+                      <span className="text-xs font-semibold text-[var(--admin-muted)] uppercase tracking-wider">Manager Feedback</span>
                     </div>
-                    <p className="text-sm text-surface-600 dark:text-surface-400 leading-relaxed">{emp.feedback}</p>
+                    <p className="text-sm text-[var(--admin-muted)] leading-relaxed">{emp.feedback}</p>
                   </div>
                 </div>
               </div>
