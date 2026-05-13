@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "./styles/admin-theme.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --color-primary-50: #eef2ff;
   --color-primary-100: #e0e7ff;
   --color-primary-200: #c7d2fe;
@@ -36,7 +35,7 @@
 }
 
 body {
-  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   background-color: var(--color-surface-50);
   color: var(--color-surface-800);
   -webkit-font-smoothing: antialiased;
@@ -77,6 +76,46 @@ body:where(.dark *) {
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(16px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+.animate-fade-up-delay-1 {
+  animation: fadeUp 0.55s ease 0.06s both;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fadeUp 0.6s ease 0.12s both;
+}
+
+/* Employee portal — subtle corporate backdrop (navy sidebar provides contrast) */
+.employee-app-bg {
+  background-image:
+    radial-gradient(900px 400px at 100% 0%, rgba(14, 116, 144, 0.06), transparent 50%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 120px);
+}
+
+.dark .employee-app-bg {
+  background-image: radial-gradient(800px 360px at 80% 0%, rgba(56, 189, 248, 0.08), transparent 55%);
 }
 
 /* Smooth dark mode transitions on key elements */

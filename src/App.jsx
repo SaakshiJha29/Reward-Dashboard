@@ -105,8 +105,8 @@ function App() {
     <div
       className={
         isAdmin
-          ? "admin-app flex h-screen w-full overflow-hidden"
-          : "flex gap-x-0 md:gap-x-8 h-screen w-full overflow-hidden bg-surface-50 dark:bg-surface-950 transition-colors duration-300"
+          ? "admin-app flex h-screen w-full overflow-hidden gap-0 md:gap-8 lg:gap-10"
+          : "employee-app-bg flex h-screen w-full gap-x-0 overflow-hidden bg-[#eef2f6] transition-colors duration-300 dark:bg-surface-950 md:gap-x-8"
       }
     >
       {/* Mobile Overlay */}
@@ -132,48 +132,48 @@ function App() {
       />
 
       <div
-        className={`flex-1 flex flex-col h-full min-w-0 overflow-y-auto overflow-x-hidden admin-main-scroll ${
-          isAdmin ? "" : ""
+        className={`flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden admin-main-scroll ${
+          isAdmin ? "" : "min-h-0"
         }`}
       >
         {isAdmin ? (
-          <header className="md:hidden sticky top-0 z-30 flex items-center justify-between gap-3 px-5 py-3 border-b border-[var(--admin-outline-variant)] bg-[var(--admin-surface-low)]/95 dark:bg-[rgba(15,23,42,0.85)] backdrop-blur-md">
+          <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-slate-200/90 bg-white/95 px-5 py-3.5 shadow-sm backdrop-blur-md md:hidden dark:border-surface-800 dark:bg-surface-900/95">
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 -ml-2 rounded-xl text-[var(--admin-on-bg)] hover:bg-[var(--admin-surface-high)] transition-colors cursor-pointer"
+              className="-ml-2 cursor-pointer rounded-lg p-2 text-slate-700 transition-colors hover:bg-slate-100 active:scale-95 dark:text-slate-200 dark:hover:bg-surface-800"
               title="Open menu"
             >
               <span className="material-symbols-outlined">menu</span>
             </button>
-            <h1 className="text-lg font-extrabold tracking-tight text-[var(--admin-primary)] dark:text-[#f0abfc]">
-              RewardPoint
-            </h1>
+            <h1 className="text-lg font-extrabold tracking-tight text-[#0c4a6e] dark:text-sky-300">RewardPoint</h1>
             <button
               type="button"
-              className="p-2 rounded-xl text-[var(--admin-primary)] hover:bg-[var(--admin-surface-high)] transition-colors cursor-pointer"
+              className="cursor-pointer rounded-lg p-2 text-sky-700 transition-all hover:bg-slate-100 active:scale-95 dark:text-sky-400 dark:hover:bg-surface-800"
               title="Notifications"
             >
               <span className="material-symbols-outlined">notifications</span>
             </button>
           </header>
         ) : (
-          <header className="flex items-center px-6 sm:px-8 md:px-14 py-5 bg-white/80 dark:bg-surface-900/80 backdrop-blur-md shadow-sm border-b border-purple-100 dark:border-surface-800 sticky top-0 z-10 transition-colors duration-300 md:hidden">
+          <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200/90 bg-white/95 px-6 py-3.5 shadow-sm backdrop-blur-md transition-colors duration-300 dark:border-surface-800 dark:bg-surface-900/95 md:hidden sm:px-8 md:px-14">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 -ml-2 text-purple-600 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-surface-800 rounded-xl transition-colors cursor-pointer"
+              className="-ml-2 cursor-pointer rounded-lg p-2 text-slate-700 transition-all hover:bg-slate-100 active:scale-95 dark:text-slate-200 dark:hover:bg-surface-800"
               title="Open menu"
             >
               <MenuIcon />
             </button>
+            <span className="text-sm font-bold tracking-tight text-[#0c4a6e] dark:text-sky-300">RewardHub</span>
+            <span className="w-10" aria-hidden />
           </header>
         )}
 
         <main
           className={
             isAdmin
-              ? "flex-1 w-full px-5 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10 pb-28 md:pb-10 transition-all duration-300"
-              : "flex-1 px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 lg:px-14 lg:py-14 w-full max-w-screen-2xl mx-auto transition-all duration-300"
+              ? "flex-1 w-full px-6 py-8 pb-28 transition-all duration-300 sm:px-8 sm:py-10 md:px-10 md:py-12 md:pb-12 lg:px-14 lg:py-14 xl:px-16 xl:py-16"
+              : "w-full min-w-0 flex-1 px-4 py-6 transition-all duration-300 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-10 lg:py-12 xl:px-12 xl:py-14"
           }
         >
           <ResolvedComponent onNavigate={navigateTo} />

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PageHeader from "../components/ui/PageHeader";
 
 /* ── Employee performance data ── */
 const employees = [
@@ -109,7 +110,7 @@ function KpiBar({ label, value }) {
         <span className="text-xs font-medium text-surface-600 dark:text-surface-400">{label}</span>
         <span className="text-xs font-bold text-surface-700 dark:text-surface-200">{value}%</span>
       </div>
-      <div className="w-full h-2.5 bg-surface-100 dark:bg-surface-800 rounded-full overflow-hidden">
+      <div className="h-2.5 w-full overflow-hidden rounded-full bg-surface-100 dark:bg-surface-800">
         <div
           className={`h-full rounded-full bg-gradient-to-r ${barColor} transition-all duration-700 ease-out`}
           style={{ width: `${value}%` }}
@@ -126,15 +127,15 @@ export default function PerformancePage() {
   const [expandedId, setExpandedId] = useState(null);
 
   return (
-    <div className="admin-page space-y-8 md:space-y-10">
-      {/* ── Header ── */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-[var(--admin-on-bg)]">Performance</h1>
-        <p className="mt-2 text-[15px] font-medium text-[var(--admin-muted)]">Review KPI scores, ratings, and manager feedback for each team member.</p>
-      </div>
+    <div className="admin-page animate-fade-up space-y-8 md:space-y-10">
+      <PageHeader
+        variant="admin"
+        title="Performance"
+        description="Review KPI scores, ratings, and manager feedback for each team member."
+      />
 
       {/* ── Employee Cards ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+      <div className="grid grid-cols-1 gap-8 md:gap-10 lg:grid-cols-2">
         {employees.map((emp) => {
           const isTop = emp.id === topPerformerId;
           const isExpanded = expandedId === emp.id;
@@ -143,10 +144,10 @@ export default function PerformancePage() {
             <div
               key={emp.id}
               className={`
-                relative admin-card overflow-hidden p-1
-                transition-all duration-300 hover:shadow-lg
+                admin-card relative overflow-hidden rounded-2xl p-1
+                transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl
                 ${isTop
-                  ? "border-amber-300/90 dark:border-amber-500/40 ring-2 ring-amber-200/60 dark:ring-amber-500/25 admin-card--neon"
+                  ? "border-amber-400/90 ring-1 ring-amber-300/50 admin-card--neon dark:border-amber-500/40 dark:ring-amber-500/20"
                   : ""
                 }
               `}
@@ -164,13 +165,13 @@ export default function PerformancePage() {
               <div className="p-7 pb-0">
                 <div className="flex items-center gap-5">
                   {/* Avatar */}
-                  <div className={`
-                    flex items-center justify-center w-13 h-13 rounded-xl text-sm font-bold shrink-0
-                    ${isTop
-                      ? "bg-gradient-to-br from-amber-400 to-yellow-500 text-white shadow-lg shadow-amber-500/25"
-                      : "bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700"
-                    }
-                  `}>
+                  <div
+                    className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-sm font-bold ${
+                      isTop
+                        ? "bg-gradient-to-br from-amber-400 to-yellow-500 text-white shadow-lg shadow-amber-500/25"
+                        : "bg-gradient-to-br from-primary-100 to-primary-200 text-primary-700 dark:from-primary-900/50 dark:to-primary-800/40 dark:text-primary-200"
+                    }`}
+                  >
                     {emp.avatar}
                   </div>
 

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import PageHeader from "../components/ui/PageHeader";
+import EmptyState from "../components/ui/EmptyState";
 
 /* ── Seed Data ── */
 const initialEmployees = [
@@ -10,10 +12,38 @@ const initialEmployees = [
   { id: "EMP006", name: "Taylor Brooks", department: "HR", role: "HR Specialist", rating: 4.4, reward: "Mentor Badge" },
   { id: "EMP007", name: "Jordan Kim", department: "Finance", role: "Financial Analyst", rating: 4.2, reward: "Gold Star" },
   { id: "EMP008", name: "Morgan Davis", department: "Engineering", role: "DevOps Engineer", rating: 4.7, reward: "Innovator" },
+  { id: "EMP009", name: "Riley Nguyen", department: "Design", role: "UI Designer", rating: 4.4, reward: "Team Player" },
+  { id: "EMP010", name: "Casey Walsh", department: "Marketing", role: "Content Strategist", rating: 4.2, reward: "Innovator" },
+  { id: "EMP011", name: "Sam Ortiz", department: "Sales", role: "Account Manager", rating: 4.0, reward: "Customer Hero" },
+  { id: "EMP012", name: "Avery Singh", department: "Engineering", role: "Software Engineer", rating: 4.6, reward: "Speed Demon" },
+  { id: "EMP013", name: "Quinn Foster", department: "HR", role: "People Partner", rating: 4.5, reward: "Mentor Badge" },
+  { id: "EMP014", name: "Reese Campbell", department: "Finance", role: "Controller", rating: 4.3, reward: "Gold Star" },
+  { id: "EMP015", name: "Blake Torres", department: "Engineering", role: "Senior Engineer", rating: 4.8, reward: "Innovator" },
+  { id: "EMP016", name: "Drew Hayes", department: "Design", role: "Product Designer", rating: 4.4, reward: "Team Player" },
+  { id: "EMP017", name: "Skyler Reed", department: "Marketing", role: "Growth Lead", rating: 4.1, reward: "Customer Hero" },
+  { id: "EMP018", name: "Charlie Bennett", department: "Sales", role: "Sales Executive", rating: 3.9, reward: "Team Player" },
+  { id: "EMP019", name: "Parker Liu", department: "Engineering", role: "Software Engineer", rating: 4.5, reward: "Gold Star" },
+  { id: "EMP020", name: "Rowan Price", department: "Finance", role: "Financial Analyst", rating: 4.0, reward: "Mentor Badge" },
 ];
 
 const departments = ["Engineering", "Design", "Marketing", "Sales", "HR", "Finance"];
-const roles = ["Senior Engineer", "Software Engineer", "DevOps Engineer", "Lead Designer", "UI Designer", "Marketing Manager", "Sales Executive", "HR Specialist", "Financial Analyst"];
+const roles = [
+  "Senior Engineer",
+  "Software Engineer",
+  "DevOps Engineer",
+  "Lead Designer",
+  "UI Designer",
+  "Product Designer",
+  "Marketing Manager",
+  "Content Strategist",
+  "Growth Lead",
+  "Sales Executive",
+  "Account Manager",
+  "HR Specialist",
+  "People Partner",
+  "Financial Analyst",
+  "Controller",
+];
 const rewards = ["Gold Star", "Team Player", "Innovator", "Mentor Badge", "Speed Demon", "Customer Hero"];
 
 const rewardColor = {
@@ -62,11 +92,11 @@ const TrashIcon = () => (
 function DeleteConfirmModal({ employee, onClose, onConfirm }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/40 backdrop-blur-sm animate-[fadeIn_200ms_ease]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/50 backdrop-blur-md animate-[fadeIn_200ms_ease]"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md mx-4 admin-modal-panel rounded-2xl shadow-2xl animate-[slideUp_300ms_ease]"
+        className="admin-modal-panel relative mx-4 w-full max-w-md rounded-2xl shadow-2xl ring-1 ring-black/5 animate-[slideUp_300ms_ease] dark:ring-white/10"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Icon */}
@@ -128,17 +158,17 @@ function AddEmployeeModal({ onClose, onAdd }) {
   };
 
   const inputClass =
-    "w-full rounded-xl border border-surface-200 bg-surface-50/50 px-4 py-2.5 text-sm text-surface-800 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400 transition-all duration-200";
+    "w-full rounded-xl border border-surface-200/90 bg-white/80 px-4 py-2.5 text-sm text-surface-800 shadow-inner shadow-slate-900/5 placeholder:text-surface-400 transition-all duration-200 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/25 dark:border-surface-700 dark:bg-surface-950/50 dark:text-surface-100";
 
   return (
     /* Backdrop */
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/40 backdrop-blur-sm animate-[fadeIn_200ms_ease]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/50 backdrop-blur-md animate-[fadeIn_200ms_ease]"
       onClick={onClose}
     >
       {/* Panel */}
       <div
-        className="relative w-full max-w-lg mx-4 admin-modal-panel rounded-2xl shadow-2xl animate-[slideUp_300ms_ease]"
+        className="admin-modal-panel relative mx-4 w-full max-w-lg rounded-2xl shadow-2xl ring-1 ring-black/5 animate-[slideUp_300ms_ease] dark:ring-white/10"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -249,12 +279,12 @@ export default function EmployeesPage() {
   const deleteEmployee = (id) => setEmployees((prev) => prev.filter((e) => e.id !== id));
 
   return (
-    <div className="admin-page space-y-8 md:space-y-10">
-      {/* ── Header ── */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-[var(--admin-on-bg)]">Employees</h1>
-        <p className="mt-2 text-[15px] font-medium text-[var(--admin-muted)]">Manage your team members, performance, and rewards.</p>
-      </div>
+    <div className="admin-page animate-fade-up space-y-8 md:space-y-10">
+      <PageHeader
+        variant="admin"
+        title="Employees"
+        description="Manage your team members, performance, and rewards."
+      />
 
       {/* ── Toolbar ── */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
@@ -269,7 +299,7 @@ export default function EmployeesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search employees…"
-            className="w-full rounded-xl border border-[var(--admin-outline-variant)] bg-[var(--admin-surface)] pl-12 pr-5 py-3 text-sm text-[var(--admin-on-bg)] placeholder:text-[var(--admin-outline)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--admin-primary)]/25 focus:border-[var(--admin-primary)] transition-all duration-200"
+            className="w-full rounded-xl border border-[var(--admin-outline-variant)] bg-[var(--admin-surface)] py-3 pl-12 pr-5 text-sm text-[var(--admin-on-bg)] shadow-inner shadow-slate-900/5 placeholder:text-[var(--admin-outline)] transition-all duration-200 focus:border-[var(--admin-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--admin-primary)]/25"
           />
         </div>
 
@@ -285,11 +315,11 @@ export default function EmployeesPage() {
       </div>
 
       {/* ── Table ── */}
-      <div className="admin-card overflow-hidden">
+      <div className="admin-card overflow-hidden rounded-2xl">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[740px]">
             <thead>
-              <tr className="border-b border-[var(--admin-outline-variant)] bg-[var(--admin-surface-low)]/80 dark:bg-white/5">
+              <tr className="border-b border-[var(--admin-outline-variant)] bg-[var(--admin-surface-low)]/90 dark:bg-white/[0.04]">
                 {["Name", "Employee ID", "Department", "Role", "Rating", "Reward", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -304,8 +334,16 @@ export default function EmployeesPage() {
             <tbody className="divide-y divide-[var(--admin-outline-variant)]/60 dark:divide-white/10">
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-6 py-16 text-center text-sm text-[var(--admin-muted)]">
-                    No employees found matching &ldquo;{search}&rdquo;
+                  <td colSpan={7} className="p-0">
+                    <EmptyState
+                      title="No matches"
+                      description={`No employees found matching “${search}”. Try a different name.`}
+                      icon={
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.25} stroke="currentColor" className="mx-auto h-12 w-12 opacity-60">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                      }
+                    />
                   </td>
                 </tr>
               )}
@@ -313,7 +351,7 @@ export default function EmployeesPage() {
               {filtered.map((emp) => (
                 <tr
                   key={emp.id}
-                  className="hover:bg-[var(--admin-surface-high)]/50 dark:hover:bg-white/5 transition-colors duration-150"
+                  className="transition-colors duration-150 hover:bg-[var(--admin-surface-high)]/55 dark:hover:bg-white/[0.04]"
                 >
                   {/* Name + Avatar */}
                   <td className="px-7 py-5">
@@ -381,7 +419,7 @@ export default function EmployeesPage() {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-7 py-4 border-t border-[var(--admin-outline-variant)] bg-[var(--admin-surface-low)]/50 dark:bg-white/5">
+        <div className="flex items-center justify-between border-t border-[var(--admin-outline-variant)] bg-[var(--admin-surface-low)]/55 px-7 py-4 dark:bg-white/[0.03]">
           <p className="text-xs text-[var(--admin-muted)]">
             Showing <span className="font-semibold text-[var(--admin-on-bg)]">{filtered.length}</span> of{" "}
             <span className="font-semibold text-[var(--admin-on-bg)]">{employees.length}</span> employees
