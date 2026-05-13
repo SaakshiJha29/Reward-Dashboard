@@ -4,7 +4,9 @@ import DashboardPage from "./pages/DashboardPage";
 import EmployeesPage from "./pages/EmployeesPage";
 import PerformancePage from "./pages/PerformancePage";
 import RewardsPage from "./pages/RewardsPage";
+import LoginPage from "./pages/LoginPage";
 import { useTheme } from "./context/ThemeContext";
+import { useAuth } from "./context/AuthContext";
 
 const pages = {
   Dashboard: DashboardPage,
@@ -13,8 +15,6 @@ const pages = {
   Rewards: RewardsPage,
 };
 
-//testing 
-
 const MenuIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -22,16 +22,28 @@ const MenuIcon = () => (
 );
 
 function App() {
+  const { isAuthenticated, role, logout } = useAuth();
   const [activePage, setActivePage] = useState("Dashboard");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const { dark, toggle } = useTheme();
-  const ActiveComponent = pages[activePage];
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2200);
     return () => clearTimeout(timer);
   }, []);
+
+  const resolvedPage =
+    isAuthenticated && role === "employee" && activePage === "Employees"
+      ? "Dashboard"
+      : activePage;
+  const ResolvedComponent = pages[resolvedPage];
+
+  const handleLogout = () => {
+    logout();
+    setActivePage("Dashboard");
+    setIsMobileMenuOpen(false);
+  };
 
   /* ── Splash / Loader ── */
   if (loading) {
@@ -67,6 +79,10 @@ function App() {
     );
   }
 
+  if (!isAuthenticated) {
+    return <LoginPage />;
+  }
+
   return (
     <div className="flex gap-x-0 md:gap-x-8 h-screen w-full overflow-hidden bg-surface-50 dark:bg-surface-950 transition-colors duration-300">
       {/* Mobile Overlay */}
@@ -78,7 +94,7 @@ function App() {
       )}
 
       <Sidebar 
-        activePage={activePage} 
+        activePage={resolvedPage} 
         onNavigate={(page) => {
           setActivePage(page);
           setIsMobileMenuOpen(false);
@@ -87,6 +103,8 @@ function App() {
         setIsMobileMenuOpen={setIsMobileMenuOpen}
         dark={dark}
         toggle={toggle}
+        userRole={role}
+        onLogout={handleLogout}
       />
 
       <div className="flex-1 flex flex-col h-full min-w-0 overflow-y-auto overflow-x-hidden">
@@ -102,7 +120,7 @@ function App() {
         </header>
 
         <main className="flex-1 px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 lg:px-14 lg:py-14 w-full max-w-screen-2xl mx-auto transition-all duration-300">
-          <ActiveComponent />
+          <ResolvedComponent />
         </main>
       </div>
     </div>

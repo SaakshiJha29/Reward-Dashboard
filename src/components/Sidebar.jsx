@@ -29,9 +29,9 @@ const icons = {
   ),
 };
 
-const menuItems = [
+const allMenuItems = [
   { key: "Dashboard", label: "Dashboard" },
-  { key: "Employees", label: "Employees" },
+  { key: "Employees", label: "Employees", adminOnly: true },
   { key: "Performance", label: "Performance" },
   { key: "Rewards", label: "Rewards" },
 ];
@@ -49,8 +49,18 @@ const MoonIcon = () => (
   </svg>
 );
 
-export default function Sidebar({ activePage, onNavigate, isMobileMenuOpen, setIsMobileMenuOpen, dark, toggle }) {
+export default function Sidebar({
+  activePage,
+  onNavigate,
+  isMobileMenuOpen,
+  setIsMobileMenuOpen,
+  dark,
+  toggle,
+  userRole,
+  onLogout,
+}) {
   const [collapsed, setCollapsed] = useState(false);
+  const menuItems = allMenuItems.filter((item) => !item.adminOnly || userRole === "admin");
 
   return (
     <aside
@@ -126,8 +136,33 @@ export default function Sidebar({ activePage, onNavigate, isMobileMenuOpen, setI
         })}
       </nav>
 
+      {/* ── Logout ── */}
+      {typeof onLogout === "function" && (
+        <div className={`px-5 pt-4 ${collapsed ? "flex justify-center" : ""}`}>
+          <button
+            type="button"
+            id="nav-logout"
+            onClick={onLogout}
+            title={collapsed ? "Log out" : undefined}
+            className={`
+              flex items-center gap-3 w-full rounded-2xl
+              px-5 py-4 text-[15px] font-semibold
+              transition-all duration-300 ease-out cursor-pointer
+              text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:scale-[1.02]
+            `}
+          >
+            <span className="shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M18 9l3 3m0 0-3 3m3-3H9" />
+              </svg>
+            </span>
+            {!collapsed && <span className="whitespace-nowrap">Log out</span>}
+          </button>
+        </div>
+      )}
+
       {/* ── Theme Toggle ── */}
-      <div className={`px-5 pt-4 pb-2 ${collapsed ? 'flex justify-center' : ''}`}>
+      <div className={`px-5 pt-2 pb-2 ${collapsed ? 'flex justify-center' : ''}`}>
         <button
           id="theme-toggle"
           onClick={toggle}
